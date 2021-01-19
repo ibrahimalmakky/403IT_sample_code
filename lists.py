@@ -36,3 +36,19 @@ for word in words:
     my_sentence = my_sentence + " " + word
 
 print(my_sentence)
+
+start_num = input("Please enter the start of the sequence")
+start_num = int(start_num)
+end_num = int(input("Please enter the end of the sequence"))
+count_even = 0
+count_odd = 0
+inrcement = 1
+if start_num > end_num:
+    inrcement = -1
+for x in range(start_num, end_num+inrcement, inrcement):
+    if x % 2 == 0:
+        count_even += 1
+    else:
+        count_odd += 1
+print("Odd Numbers = ", count_odd)
+print("Even Numbers = ", count_even)
