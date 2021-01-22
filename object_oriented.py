@@ -1,5 +1,7 @@
 class Student:
 
+    __test_private = 0
+
     # Constructor method
     # Here we are initialising the values for each new instance of the class
     def __init__(self, first_name, surename, age):
