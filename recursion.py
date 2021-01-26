@@ -4,11 +4,13 @@ def count(current, max):
     if current < max:
         count(current+1, max)
 
-def fibonacci(a, b, max):
+# a and b are the starting values
+# max is the max value to reach with the sequence
+def fibonacci(a, b, max, lst=[]):
     c = a + b
-    print(b)
+    lst.append(b)
     if c < max:
-        fibonacci(b, c, max)        
+        return fibonacci(b, c, max, lst)    
+    else:
+        return lst 
 
-print(0)
-fibonacci(0, 1, 100)
