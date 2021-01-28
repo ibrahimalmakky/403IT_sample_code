@@ -1,7 +1,6 @@
 # We want to use the functions that we have declared in the recursion.py file
 import recursion
 
-
 # Writing data to a file
 my_file = open("test.txt", "w")
 my_file.write("This is some file content. Hello 403IT :D")
