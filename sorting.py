@@ -8,6 +8,19 @@ def gen_rand_list(length):
         rand_list.append(random.randrange(0,length))
     return rand_list
 
+# Randomly generate a list of ordered numbers
+def gen_rand_ord_list(length):
+    rand_list = []
+    i = 0
+    while len(rand_list) < length:
+        flip = random.randrange(0,2)
+        if flip == 0:
+            pass
+        else:
+            rand_list.append(i)
+        i+=1
+    return rand_list
+
 # Measure the time it takes a function to process a list
 def time_alg(sort_func, my_list):
     tic = time.perf_counter()
@@ -16,7 +29,9 @@ def time_alg(sort_func, my_list):
     return toc-tic
 
 # Selection Sort
-def selectionSort(my_list):
+# Computation Complexity (Big-O notation)
+# O(n**2)
+def selection_sort(my_list):
     my_ordered_list = []
     while len(my_list) != 0:
         smallest_num_index = 0
@@ -27,8 +42,10 @@ def selectionSort(my_list):
         del my_list[smallest_num_index]
     return my_ordered_list
 
+
 # Bubble Sort (Herbert and Kasia)
-def bubbleSort(my_list):
+# Computational Complexity: O(n**2)
+def bubble_sort(my_list):
     for _ in range(len(my_list)):
         x = 0
         while x < len(my_list)-1:
@@ -37,8 +54,10 @@ def bubbleSort(my_list):
             x += 1
     return my_list
 
+
 # Bubble Sort (Weronika)
-def bubbleSortW(my_list):
+# Computational Complexity: O(n**2)
+def bubble_sort_w(my_list):
     n = len(my_list)
     for i in range(n-1):
         for j in range(n-i-1):
@@ -47,14 +66,53 @@ def bubbleSortW(my_list):
     return my_list
 
 
+# Merge Sort
+# Computational Complexity: O(n*log(n))
+def merge_sort(my_list):
+    if len(my_list) > 1:
+        mid = len(my_list) // 2
+        L = my_list[:mid].copy()
+        R = my_list[mid:].copy()
+        merge_sort(L)
+        merge_sort(R)
+        
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                my_list[k] = L[i]
+                i+=1
+            else: 
+                my_list[k] = R[j]
+                j+=1
+            k += 1
+        
+        while i < len(L) and k < len(my_list):
+            my_list[k] = L[i]
+            i += 1
+            k += 1
+        
+        while j < len(R) and k < len(my_list):
+            my_list[k] = R[j]
+            j+=1
+            k+=1
+
+    else:
+        return my_list
+
+
 def test_sorting():
     lengths = [10, 100, 500, 1000, 5000, 10000, 15000, 20000]
-    times = {'selectionSort':[], 'bubbleSort':[], 'bubbleSortW':[]}
+    times = {'selectionSort':[], 'bubbleSort':[], 'bubbleSortW':[], 'mergeSort':[]}
     for length in lengths:
         current_list = gen_rand_list(length)
-        times['selectionSort'].append(time_alg(selectionSort, current_list))
-        times['bubbleSort'].append(time_alg(bubbleSort, current_list))
-        times['bubbleSortW'].append(time_alg(bubbleSortW, current_list))
+        times['selectionSort'].append(time_alg(selection_sort, current_list))
+        times['bubbleSort'].append(time_alg(bubble_sort, current_list))
+        times['bubbleSortW'].append(time_alg(bubble_sort_w, current_list))
+        times['mergeSort'].append(time_alg(merge_sort, current_list))
         print(times)
 
-# test_sorting()
+test_sorting()
+# print(gen_rand_ord_list(100))
+# my_list = gen_rand_list(10)
+# merge_sort(my_list)
+# print(my_list)
