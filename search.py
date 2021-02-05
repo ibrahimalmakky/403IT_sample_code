@@ -1,5 +1,5 @@
 from sorting import gen_rand_ord_list
-from sorting import selectionSort
+from sorting import selection_sort
 import time
 import random
 

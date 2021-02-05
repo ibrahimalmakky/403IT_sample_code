@@ -100,6 +100,62 @@ def merge_sort(my_list):
         return my_list
 
 
+# Pass a list and return the largest index of a specified list of indices
+# Example:
+# [3, 5, 7, 2]
+# [0, 1, 2]
+# 2
+def largest_ind(alist, inds):
+    largest_ind = inds[0]
+    for i in range(1, len(inds)):
+        if alist[largest_ind] < alist[inds[i]]:
+            largest_ind = inds[i]
+    return largest_ind
+
+# swap two elements of a list
+def swap(alist, ind1, ind2):
+    alist[ind1], alist[ind2] = alist[ind2], alist[ind1]
+
+# Build max heap
+def max_heap(my_list):
+    # print(my_list)
+    first_non_leaf_node = int(len(my_list)/2-1)
+    for i in range(first_non_leaf_node, -1, -1):
+        left_child = 2*i+1
+        right_child = 2*i+2
+        root = my_list[i]
+        
+        if right_child < len(my_list):
+            print(str(my_list[i])+": "+str(my_list[left_child])+", "+str(my_list[right_child]))
+            largest_num = largest_ind(my_list, [i, left_child, right_child])
+        elif left_child < len(my_list):
+            print(str(my_list[i])+": "+str(my_list[left_child]))
+            largest_num = largest_ind(my_list, [i, left_child])
+            # print(my_list[largest_num])
+        else:
+            largest_num = i
+
+        if largest_num != i:
+                swap(my_list, i, largest_num)
+                # Something can be done here to make things more effecient
+                max_heap(my_list)
+        # print(my_list)
+
+# Heap Sort
+def heap_sort(my_list):
+    
+    sorted_list = []
+    n = len(my_list)
+    max_heap(my_list)
+
+    while len(sorted_list) < n:
+        swap(my_list, 0, -1)
+        sorted_list.append(my_list[-1])
+        del my_list[-1]
+        max_heap(my_list)
+
+    return sorted_list
+
 def test_sorting():
     lengths = [10, 100, 500, 1000, 5000, 10000, 15000, 20000]
     times = {'selectionSort':[], 'bubbleSort':[], 'bubbleSortW':[], 'mergeSort':[]}
@@ -111,8 +167,9 @@ def test_sorting():
         times['mergeSort'].append(time_alg(merge_sort, current_list))
         print(times)
 
-test_sorting()
+# test_sorting()
 # print(gen_rand_ord_list(100))
 # my_list = gen_rand_list(10)
 # merge_sort(my_list)
 # print(my_list)
+# heap_sort([1,12,9,5,6,10])
