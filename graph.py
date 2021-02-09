@@ -49,10 +49,22 @@ class Graph:
             else:
                 current_path.append(current_node)
             print(current_path)
+        
+        # Refine the current path
+        for i in range(0, len(current_path)-2):
+            for j in range(i+2, len(current_path)):
+                if current_path[j] in self.map[current_path[i]]:
+                    del current_path[i+1:j]
+                    break
+        print(current_path)
                      
+
+    def find_shortest_path(self, start, end):
+        pass
 
 
 my_graph = Graph()
 my_graph.add_nodes(["C","D","E","F","G","H","I"])
-my_graph.add_edges([("D", "C"),("D", "E"),("E", "F"),("F", "G"),("G", "H"),("H", "I")])
-my_graph.depth_first_search("D","I")
+my_graph.add_edges([("E", "C"),("D", "C"),("D", "E"),("E", "F"),("F", "G"),("G", "H"),("H", "I"),("G","I")])
+# print(my_graph.map)
+# my_graph.depth_first_search("D","I")
